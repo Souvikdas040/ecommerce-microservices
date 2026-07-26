@@ -9,17 +9,15 @@ import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 
 import { RabbitMQModule } from '../rabbitmq/rabbitmq.module';
+import { RabbitMQService } from 'src/rabbitmq/rabbitmq.service';
+import { CustomerService } from 'src/customer/customer.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      Order,
-      OrderItem,
-      Product,
-    ]),
+    TypeOrmModule.forFeature([Order, OrderItem, Product]),
     RabbitMQModule,
   ],
   controllers: [OrderController],
-  providers: [OrderService],
+  providers: [OrderService, RabbitMQService, CustomerService],
 })
 export class OrderModule {}

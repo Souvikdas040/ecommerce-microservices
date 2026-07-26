@@ -10,12 +10,14 @@ import { Product } from '../product/entities/product.entity';
 
 import { CheckoutDto } from './dto/checkout.dto';
 import { RabbitMQService } from '../rabbitmq/rabbitmq.service';
+import { CustomerService } from 'src/customer/customer.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     private readonly dataSource: DataSource,
     private readonly rabbitMQService: RabbitMQService,
+    private readonly customerService: CustomerService,
 
     @InjectRepository(Order)
     private readonly orderRepository: Repository<Order>,
@@ -28,6 +30,7 @@ export class OrderService {
   ) {}
 
   async checkout(dto: CheckoutDto) {
+    await this.customerService.validateCustomer(dto.customerId);
     let totalAmount = 0;
 
     const orderItems: OrderItem[] = [];
