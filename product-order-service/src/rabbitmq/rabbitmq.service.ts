@@ -31,7 +31,7 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
       },
     );
 
-    console.log(`📤 Published Event: ${routingKey}`);
+    console.log(`📤 Published: ${routingKey}`);
   }
 
   async onModuleDestroy() {
